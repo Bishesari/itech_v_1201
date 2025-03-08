@@ -22,8 +22,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $validated = $this->validate([
             'f_name_fa' => ['required', 'string', 'min:2', 'max:255'],
             'l_name_fa' => ['required', 'string', 'min:2', 'max:255'],
-            'n_code' => ['required', 'string', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'n_code' => ['required', 'string', 'max:10', 'unique:' . User::class],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -43,7 +42,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <x-auth-session-status class="text-center" :status="session('status')" />
 
     <form wire:submit="register" class="flex flex-col gap-6">
-        <!-- Farsi First Name -->
+        <!-- First Name Fa-->
         <flux:input
             wire:model="f_name_fa"
             :label="__('نام:')"
@@ -54,7 +53,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             :placeholder="__('نام فارسی')"
         />
 
-        <!-- Farsi Last Name -->
+        <!-- Last Name Fa-->
         <flux:input
             wire:model="l_name_fa"
             :label="__('نام خانوادگی:')"
@@ -86,7 +85,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Create account') }}
+                {{ __('ایجاد حساب') }}
             </flux:button>
         </div>
     </form>
