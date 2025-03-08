@@ -9,10 +9,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')] class extends Component {
-    public string $name = '';
-    public string $email = '';
-    public string $password = '';
-    public string $password_confirmation = '';
+    public string $f_name_fa = '';
+    public string $l_name_fa = '';
+    public string $n_code = '';
+    public string $mobile = '';
 
     /**
      * Handle an incoming registration request.
@@ -20,8 +20,9 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public function register(): void
     {
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'f_name_fa' => ['required', 'string', 'min:2', 'max:255'],
+            'l_name_fa' => ['required', 'string', 'min:2', 'max:255'],
+            'n_code' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -36,51 +37,51 @@ new #[Layout('components.layouts.auth')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+    <x-auth-header :title="__('فرم ثبت نام')" :description="__('اطلاعات خواسته شده را جهت ثبت نام وارد کنید.')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
 
     <form wire:submit="register" class="flex flex-col gap-6">
-        <!-- Name -->
+        <!-- Farsi First Name -->
         <flux:input
-            wire:model="name"
-            :label="__('Name')"
+            wire:model="f_name_fa"
+            :label="__('نام:')"
             type="text"
             required
             autofocus
-            autocomplete="name"
-            :placeholder="__('Full name')"
+            autocomplete="off"
+            :placeholder="__('نام فارسی')"
         />
 
-        <!-- Email Address -->
+        <!-- Farsi Last Name -->
         <flux:input
-            wire:model="email"
-            :label="__('Email address')"
-            type="email"
+            wire:model="l_name_fa"
+            :label="__('نام خانوادگی:')"
+            type="text"
             required
-            autocomplete="email"
-            placeholder="email@example.com"
+            autocomplete="off"
+            :placeholder="__('نام خانوادگی فارسی')"
         />
 
-        <!-- Password -->
-        <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
+        <!-- National Code -->
+        <flux:input style="direction:ltr"
+            wire:model="n_code"
+            :label="__('کدملی:')"
+            type="text"
             required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
+            autocomplete="off"
+            :placeholder="__('کدملی')"
         />
 
-        <!-- Confirm Password -->
-        <flux:input
-            wire:model="password_confirmation"
-            :label="__('Confirm password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Confirm password')"
+        <!-- Mobile Phone -->
+        <flux:input style="direction:ltr"
+                    wire:model="mobile"
+                    :label="__('موبایل:')"
+                    type="text"
+                    required
+                    autocomplete="off"
+                    :placeholder="__('موبایل')"
         />
 
         <div class="flex items-center justify-end">
