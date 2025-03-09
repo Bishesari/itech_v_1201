@@ -14,6 +14,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $n_code = '';
     public string $mobile = '';
 
+
     /**
      * Handle an incoming registration request.
      */
@@ -34,19 +35,21 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
     }
 
-    public $a = 5;
-    public function send()
+    public function sendOtp(): void
     {
-        $this->a = 1;
+        $this->validate([
+            'mobile' => ['required', 'regex:/^09[0-9]{9}$/']
+        ]);
+        $this->dispatch('open-modal', 'confirm-user-deletion');
+
     }
 }; ?>
 
 <div class="flex flex-col gap-6">
-    {{$a}}
-    <x-auth-header :title="__('فرم ثبت نام')" :description="__('اطلاعات خواسته شده را جهت ثبت نام وارد کنید.')" />
+    <x-auth-header :title="__('فرم ثبت نام')" :description="__('اطلاعات خواسته شده را جهت ثبت نام وارد کنید.')"/>
 
     <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+    <x-auth-session-status class="text-center" :status="session('status')"/>
 
     <form wire:submit="register" class="flex flex-col gap-6">
         <!-- First Name Fa-->
@@ -72,12 +75,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <!-- National Code -->
         <flux:input style="direction:ltr"
-            wire:model="n_code"
-            :label="__('کدملی:')"
-            type="text"
-            required
-            autocomplete="off"
-            :placeholder="__('کدملی')"
+                    wire:model="n_code"
+                    :label="__('کدملی:')"
+                    type="text"
+                    required
+                    autocomplete="off"
+                    :placeholder="__('کدملی')"
         />
 
         <!-- Mobile Phone -->
@@ -97,12 +100,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
         </div>
     </form>
 
-
-    <flux:modal.trigger name="confirm-user-deletion">
-        <flux:button variant="danger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')" wire:click="send">
-            {{ __('Delete account') }}
-        </flux:button>
-    </flux:modal.trigger>
+    <flux:button variant="danger"
+                 wire:click="sendOtp">
+        {{ __('Delete accossssunt') }}
+    </flux:button>
 
     <flux:modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
         <form wire:submit="deleteUser" class="space-y-6">
@@ -114,7 +115,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 </flux:subheading>
             </div>
 
-            <flux:input wire:model="password" :label="__('Password')" type="password" />
+            <flux:input wire:model="password" :label="__('Password')" type="password"/>
 
             <div class="flex justify-end space-x-2">
                 <flux:modal.close>
@@ -125,8 +126,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </div>
         </form>
     </flux:modal>
-
-
 
 
     <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
