@@ -71,15 +71,11 @@ new #[Layout('components.layouts.auth')] class extends Component {
         />
 
         <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
+            <flux:button type="submit" variant="primary" class="w-full" wire:click="sendOtp">
                 {{ __('ایجاد حساب') }}
             </flux:button>
         </div>
     </form>
-
-    <flux:button variant="danger" x-data="" wire:click="sendOtp">
-        {{ __('Delete account') }}
-    </flux:button>
 
 
     <flux:modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable class="max-w-lg" :dismissible="false">
