@@ -49,7 +49,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')"/>
 
-    <form wire:submit="register" class="flex flex-col gap-6">
+    <form wire:submit="sendOtp" class="flex flex-col gap-6">
         <flux:input wire:model="f_name_fa" :label="__('نام:')" type="text" required autofocus autocomplete="off"
                     :placeholder="__('نام فارسی')"
         />
@@ -70,11 +70,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
                     :placeholder="__('موبایل')"
         />
 
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full" wire:click="sendOtp">
-                {{ __('ایجاد حساب') }}
-            </flux:button>
-        </div>
+        <flux:button variant="primary" type="submit">
+            {{ __('Delete account') }}
+        </flux:button>
+
     </form>
 
 
