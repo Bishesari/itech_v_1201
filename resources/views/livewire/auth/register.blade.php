@@ -14,7 +14,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $n_code = '';
     public string $mobile = '';
 
-
     /**
      * Handle an incoming registration request.
      */
@@ -41,45 +40,23 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'mobile' => ['required', 'regex:/^09[0-9]{9}$/']
         ]);
         $this->modal('confirm-user-deletion')->show();
-
     }
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('فرم ثبت نام')" :description="__('اطلاعات خواسته شده را جهت ثبت نام وارد کنید.')"/>
+    <x-auth-header :title="__('فرم ثبت نام')" :description="__('اطلاعات ثبت نام را وارد کنید.')"/>
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')"/>
 
     <form wire:submit="register" class="flex flex-col gap-6">
-        <!-- First Name Fa-->
-        <flux:input
-            wire:model="f_name_fa"
-            :label="__('نام:')"
-            type="text"
-            required
-            autofocus
-            autocomplete="off"
-            :placeholder="__('نام فارسی')"
+        <flux:input wire:model="f_name_fa" :label="__('نام:')" type="text" required autofocus autocomplete="off"
+                    :placeholder="__('نام فارسی')"
         />
-
-        <!-- Last Name Fa-->
-        <flux:input
-            wire:model="l_name_fa"
-            :label="__('نام خانوادگی:')"
-            type="text"
-            required
-            autocomplete="off"
-            :placeholder="__('نام خانوادگی فارسی')"
+        <flux:input wire:model="l_name_fa" :label="__('نام خانوادگی:')" type="text" required autocomplete="off"
+                    :placeholder="__('نام خانوادگی فارسی')"
         />
-
-        <!-- National Code -->
-        <flux:input style="direction:ltr"
-                    wire:model="n_code"
-                    :label="__('کدملی:')"
-                    type="text"
-                    required
-                    autocomplete="off"
+        <flux:input style="direction:ltr" wire:model="n_code" :label="__('کدملی:')" type="text" required autocomplete="off"
                     :placeholder="__('کدملی')"
         />
 
@@ -99,8 +76,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </flux:button>
         </div>
     </form>
-    <flux:modal.trigger name="confirm-user-deletion">
-    </flux:modal.trigger>
 
     <flux:button variant="danger" x-data="" wire:click="sendOtp">
         {{ __('Delete account') }}
