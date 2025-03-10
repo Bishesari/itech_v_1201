@@ -40,7 +40,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $this->validate([
             'mobile' => ['required', 'regex:/^09[0-9]{9}$/']
         ]);
-        $this->dispatch('open-modal', 'confirm-user-deletion');
+        $this->modal('confirm-user-deletion')->show();
 
     }
 }; ?>
@@ -99,13 +99,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </flux:button>
         </div>
     </form>
+    <flux:modal.trigger name="confirm-user-deletion">
+    </flux:modal.trigger>
 
-    <flux:button variant="danger"
-                 wire:click="sendOtp">
-        {{ __('Delete accossssunt') }}
+    <flux:button variant="danger" x-data="" wire:click="sendOtp">
+        {{ __('Delete account') }}
     </flux:button>
 
-    <flux:modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
+
+    <flux:modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable class="max-w-lg" :dismissible="false">
         <form wire:submit="deleteUser" class="space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Are you sure you want to delete your account?') }}</flux:heading>
