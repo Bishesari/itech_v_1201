@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class SmsService
 {
-    protected string $apiKey = '93A4A986-5501-40ED-BBB8-92D6744B48E0';
+    protected string $apiKey = '479E7C62-E901-4952-8017-A99604BBB69E';
     protected string $smsNumber = '10001983';
     protected string $apiUrl = 'https://sms.parsgreen.ir/Apiv2/Message/SendSms';
 
