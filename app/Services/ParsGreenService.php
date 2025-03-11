@@ -11,7 +11,7 @@ class ParsGreenService
     public function __construct()
     {
         $this->apiKey = env('PARSGREEN_API_KEY');
-        $this->smsNumber = env('PARSGREEN_SMS_NUMBER');
+        $this->smsNumber = env('PARSGREEN_SENDER');
     }
 
 
