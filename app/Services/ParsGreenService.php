@@ -6,8 +6,13 @@ use Illuminate\Support\Facades\Http;
 
 class ParsGreenService
 {
-    protected string $apiKey = '479E7C62-E901-4952-8017-A99604BBB69E';
-    protected string $smsNumber = '10001983';
+    protected string $apiKey;
+    protected string $smsNumber;
+    public function __construct()
+    {
+        $this->apiKey = env('PARSGREEN_API_KEY');
+        $this->smsNumber = env('PARSGREEN_SMS_NUMBER');
+    }
 
 
     // ارسال پیامک عمومی
